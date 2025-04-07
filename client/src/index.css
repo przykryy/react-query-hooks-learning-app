@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 14% 18%;
+    --foreground: 0 0% 100%;
+    
+    --card: 222 16% 12%;
+    --card-foreground: 0 0% 100%;
+    
+    --popover: 222 16% 12%;
+    --popover-foreground: 0 0% 100%;
+    
+    --primary: 193 86% 69%;
+    --primary-foreground: 222 47% 11%;
+    
+    --secondary: 358 100% 63%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --muted: 220 14% 24%;
+    --muted-foreground: 0 0% 80%;
+    
+    --accent: 92 48% 62%;
+    --accent-foreground: 220 14% 8%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 220 14% 28%;
+    --input: 220 14% 25%;
+    --ring: 193 86% 69%;
+    
+    --radius: 0.5rem;
+  }
+  
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-inter;
+  }
+  
+  .font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .font-code {
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  .code-editor {
+    @apply bg-[#1E1E1E] rounded-md;
+  }
+  
+  .code-line:hover {
+    @apply bg-white/5;
+  }
+  
+  .line-number {
+    @apply text-gray-600 text-right pr-4 select-none;
+  }
+  
+  .react-keyword { @apply text-[#C586C0]; }
+  .react-function { @apply text-[#DCDCAA]; }
+  .react-property { @apply text-[#9CDCFE]; }
+  .react-string { @apply text-[#CE9178]; }
+  .react-comment { @apply text-[#6A9955]; }
+  .react-number { @apply text-[#B5CEA8]; }
+  .react-variable { @apply text-[#61DAFB]; }
+  .react-hook { @apply text-[#61DAFB]; }
+  .react-return { @apply text-[#C586C0]; }
+  .react-import { @apply text-[#C586C0]; }
+  .react-const { @apply text-[#569CD6]; }
+  .html-element { @apply text-[#569CD6]; }
+  .html-attribute { @apply text-[#9CDCFE]; }
+}
