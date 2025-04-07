@@ -463,19 +463,19 @@ const UseQueryPage = () => {
         </p>
         
         <div className="bg-sidebar rounded-md p-4 my-4 font-code text-sm">
-          <pre>const {
+          <pre>const {'{'} 
   data,
   isLoading,
   isError,
   error,
-  // other properties
-} = useQuery({
+  // other properties 
+{'}'} = useQuery({'{'}
   queryKey: ['uniqueKey', param1, param2], 
-  queryFn: async () => {
+  queryFn: async function() {'{'}
     // Fetch and return data
-  },
+  {'}'},
   // options
-});</pre>
+{'}'});</pre>
         </div>
         
         <p className="mb-2">
@@ -662,7 +662,7 @@ const UseQueryPage = () => {
             </p>
             <ul className="space-y-1 pl-3 mb-3">
               <li>Simple strings: <code className="bg-sidebar text-xs px-1 rounded">queryKey: ['todos']</code></li>
-              <li>Hierarchical arrays: <code className="bg-sidebar text-xs px-1 rounded">queryKey: ['todos', { status: 'active' }]</code></li>
+              <li>Hierarchical arrays: <code className="bg-sidebar text-xs px-1 rounded">queryKey: ['todos', {'{'} status: 'active' {'}'}]</code></li>
               <li>Dynamic values: <code className="bg-sidebar text-xs px-1 rounded">queryKey: ['todo', todoId]</code></li>
             </ul>
             <p className="text-sm">

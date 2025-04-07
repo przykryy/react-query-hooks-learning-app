@@ -111,10 +111,7 @@ function AppProviders({ children }) {
   });
   
   // Cart state using useReducer
-  const [cart, dispatch] = useReducer(cartReducer, [
-    { id: 1, name: 'Product 1', price: 29.99 },
-    { id: 2, name: 'Product 2', price: 19.99 }
-  ]);
+  const [cart, dispatch] = useReducer(cartReducer, []);
   
   // Login/logout function
   const toggleLogin = () => {
@@ -356,19 +353,19 @@ const UseContext = () => {
 const MyContext = createContext(defaultValue);
 
 // 2. Provide a value from a component
-function ParentComponent() {
+function ParentComponent() {"{"} 
   return (
-    <MyContext.Provider value={/* some value */}>
-      <ChildComponents />
-    </MyContext.Provider>
+    &lt;MyContext.Provider value={"{"}/* some value */{"}"}&gt;
+      &lt;ChildComponents /&gt;
+    &lt;/MyContext.Provider&gt;
   );
-}
+{"}"}
 
 // 3. Consume the context in any nested component
-function ChildComponent() {
+function ChildComponent() {"{"} 
   const contextValue = useContext(MyContext);
   // Use the context value
-}</code></pre>
+{"}"}</code></pre>
         </div>
       </div>
       

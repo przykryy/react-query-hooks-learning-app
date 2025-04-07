@@ -4,7 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import NotFound from "@/pages/not-found";
 import MainLayout from "@/components/layout/MainLayout";
-import Home from "@/pages/home";
+import Home from "@/pages/Home";
 
 // React Hooks Pages
 import UseState from "@/pages/hooks/useState";
@@ -22,8 +22,6 @@ import QueryClientProviderPage from "@/pages/tanstack/query-client-provider";
 import UseQueryPage from "@/pages/tanstack/useQuery";
 import UseMutationPage from "@/pages/tanstack/useMutation";
 import Invalidation from "@/pages/tanstack/invalidation";
-import Caching from "@/pages/tanstack/caching";
-import Pagination from "@/pages/tanstack/pagination";
 
 function Router() {
   return (
@@ -47,8 +45,6 @@ function Router() {
         <Route path="/tanstack/use-query" component={UseQueryPage} />
         <Route path="/tanstack/use-mutation" component={UseMutationPage} />
         <Route path="/tanstack/invalidation" component={Invalidation} />
-        <Route path="/tanstack/caching" component={Caching} />
-        <Route path="/tanstack/pagination" component={Pagination} />
         
         {/* Fallback to 404 */}
         <Route component={NotFound} />

@@ -447,8 +447,8 @@ const UseReducer = () => {
         </p>
         
         <div className="bg-sidebar rounded-md p-4 my-4 font-code text-sm">
-          <pre><code>dispatch({ type: 'INCREMENT' }); // Simple action
-dispatch({ type: 'ADD_TODO', payload: { text: 'Learn useReducer' } }); // With payload</code></pre>
+          <pre><code>dispatch({"{"} type: 'INCREMENT' {"}"}); // Simple action
+dispatch({"{"} type: 'ADD_TODO', payload: {"{"} text: 'Learn useReducer' {"}"} {"}"}); // With payload</code></pre>
         </div>
       </div>
       

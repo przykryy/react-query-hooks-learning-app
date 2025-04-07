@@ -260,14 +260,14 @@ const UseEffect = () => {
         <p className="mb-4">Here's the basic syntax of useEffect:</p>
         
         <div className="bg-sidebar rounded-md p-4 my-4 font-code text-sm">
-          <pre>useEffect(() => {
+          <pre>useEffect(function() {'{'}
   // Side effect code goes here
   
   // Optional cleanup function
-  return () => {
+  return function() {'{'}
     // Cleanup code goes here
-  };
-}, [dependencies]);</pre>
+  {'}'};
+{'}'}, [dependencies]);</pre>
         </div>
         
         <ul className="list-disc pl-5 space-y-2 mb-4">
@@ -327,7 +327,7 @@ const UseEffect = () => {
                 </li>
                 <li className="flex items-start">
                   <div className="w-2 h-2 rounded-full bg-primary mt-1.5 mr-2"></div>
-                  <span>We use setSeconds(seconds => seconds + 1) instead of setSeconds(seconds + 1) to avoid stale closures</span>
+                  <span>We use setSeconds(function(seconds) {'{'} return seconds + 1; {'}'}) instead of setSeconds(seconds + 1) to avoid stale closures</span>
                 </li>
                 <li className="flex items-start">
                   <div className="w-2 h-2 rounded-full bg-primary mt-1.5 mr-2"></div>

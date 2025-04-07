@@ -346,7 +346,7 @@ const UseCallback = () => {
         
         <div className="bg-sidebar rounded-md p-4 my-4 font-code text-sm">
           <pre>const memoizedCallback = useCallback(
-  () => { /* function body */ },
+  function() {'{'} /* function body */ {'}'},
   [dependency1, dependency2]
 );</pre>
         </div>
@@ -533,7 +533,7 @@ const UseCallback = () => {
                 <li>Use when a function is a dependency in other hooks</li>
               </ul>
               <div className="mt-2 font-code text-xs bg-muted p-2 rounded">
-                <pre>useCallback(() => fn(a, b), [a, b]);</pre>
+                <pre>useCallback(function() {'{'} fn(a, b) {'}'}, [a, b]);</pre>
               </div>
             </div>
             
@@ -546,7 +546,7 @@ const UseCallback = () => {
                 <li>Use when creating objects to avoid new references</li>
               </ul>
               <div className="mt-2 font-code text-xs bg-muted p-2 rounded">
-                <pre>useMemo(() => fn(a, b), [a, b]);</pre>
+                <pre>useMemo(function() {'{'} return fn(a, b); {'}'}, [a, b]);</pre>
               </div>
             </div>
           </div>

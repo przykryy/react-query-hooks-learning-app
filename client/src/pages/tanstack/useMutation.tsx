@@ -1,6 +1,6 @@
 import React from 'react';
-import { NextSteps } from '@/components/tutorial/NextSteps';
-import { LearningObjectives } from '@/components/tutorial/LearningObjectives';
+import NextSteps from '@/components/tutorial/NextSteps';
+import LearningObjectives from '@/components/tutorial/LearningObjectives';
 import CodeExample from '@/components/tutorial/CodeExample';
 import Quiz from '@/components/tutorial/Quiz';
 
@@ -335,60 +335,60 @@ const quizQuestions = [
     id: '1',
     question: 'What is the primary purpose of useMutation in TanStack Query?',
     options: [
-      'To fetch data from an API',
-      'To handle create, update, and delete operations',
-      'To manage query caching',
-      'To handle offline data synchronization'
+      { id: 'a', text: 'To fetch data from an API' },
+      { id: 'b', text: 'To handle create, update, and delete operations' },
+      { id: 'c', text: 'To manage query caching' },
+      { id: 'd', text: 'To handle offline data synchronization' }
     ],
-    correctAnswerIndex: 1,
+    correctAnswer: 'b',
     explanation: 'useMutation is designed for handling data mutations (create, update, delete operations) rather than data fetching. It provides useful state variables and functions for managing the lifecycle of a mutation.'
   },
   {
     id: '2',
     question: 'What does the onMutate callback in useMutation allow you to do?',
     options: [
-      'Handle mutation errors',
-      'Transform the variables before the mutation',
-      'Perform optimistic updates and return context for potential rollbacks',
-      'Log mutation metrics'
+      { id: 'a', text: 'Handle mutation errors' },
+      { id: 'b', text: 'Transform the variables before the mutation' },
+      { id: 'c', text: 'Perform optimistic updates and return context for potential rollbacks' },
+      { id: 'd', text: 'Log mutation metrics' }
     ],
-    correctAnswerIndex: 2,
+    correctAnswer: 'c',
     explanation: 'The onMutate callback is called before a mutation executes. It allows you to perform optimistic updates by modifying the cache and return a context object that can be used to roll back changes if the mutation fails.'
   },
   {
     id: '3',
-    question: 'After a successful mutation, what's the best way to update the query cache?',
+    question: "After a successful mutation, what is the best way to update the query cache?",
     options: [
-      'Manually update the cache using queryClient.setQueryData',
-      'Always invalidate related queries with queryClient.invalidateQueries',
-      'Use a combination of optimistic updates and cache invalidation depending on the use case',
-      'Directly modify the DOM to reflect the changes'
+      { id: 'a', text: 'Manually update the cache using queryClient.setQueryData' },
+      { id: 'b', text: 'Always invalidate related queries with queryClient.invalidateQueries' },
+      { id: 'c', text: 'Use a combination of optimistic updates and cache invalidation depending on the use case' },
+      { id: 'd', text: 'Directly modify the DOM to reflect the changes' }
     ],
-    correctAnswerIndex: 2,
+    correctAnswer: 'c',
     explanation: 'The best approach depends on the use case. For real-time feedback, optimistic updates with queryClient.setQueryData work well. For ensuring data consistency, invalidating queries forces a refetch. A combination of both is often the most effective strategy.'
   },
   {
     id: '4',
     question: 'What does the isPending property indicate in a mutation result?',
     options: [
-      'Whether the mutation has successfully completed',
-      'Whether the mutation has encountered an error',
-      'Whether the mutation is currently in progress',
-      'Whether the mutation has been paused'
+      { id: 'a', text: 'Whether the mutation has successfully completed' },
+      { id: 'b', text: 'Whether the mutation has encountered an error' },
+      { id: 'c', text: 'Whether the mutation is currently in progress' },
+      { id: 'd', text: 'Whether the mutation has been paused' }
     ],
-    correctAnswerIndex: 2,
-    explanation: 'The isPending property (formerly isLoading in v4) indicates that the mutation is currently in progress. It's useful for displaying loading states in the UI while the mutation is being executed.'
+    correctAnswer: 'c',
+    explanation: "The isPending property (formerly isLoading in v4) indicates that the mutation is currently in progress. It is useful for displaying loading states in the UI while the mutation is being executed."
   },
   {
     id: '5',
     question: 'What is an optimistic update in the context of mutations?',
     options: [
-      'A performance optimization technique',
-      'Immediately updating the UI before the server confirms the change',
-      'Batching multiple mutations together',
-      'Automatically retrying failed mutations'
+      { id: 'a', text: 'A performance optimization technique' },
+      { id: 'b', text: 'Immediately updating the UI before the server confirms the change' },
+      { id: 'c', text: 'Batching multiple mutations together' },
+      { id: 'd', text: 'Automatically retrying failed mutations' }
     ],
-    correctAnswerIndex: 1,
+    correctAnswer: 'b',
     explanation: 'An optimistic update is when you immediately update the UI to reflect the expected result of a mutation before receiving confirmation from the server. If the mutation fails, you can roll back to the previous state.'
   }
 ];
@@ -421,21 +421,21 @@ const UseMutationPage: React.FC = () => {
         </p>
         
         <div className="bg-sidebar rounded-md p-4 my-4 font-code text-sm">
-          <pre>const mutation = useMutation({
-  mutationFn: (variables) => {
+          <pre>const mutation = useMutation({'{'}
+  mutationFn: function(variables) {'{'}
     // Function that performs the mutation
     return api.createItem(variables);
-  },
-  onSuccess: (data, variables, context) => {
+  {'}'},
+  onSuccess: function(data, variables, context) {'{'}
     // Called when the mutation succeeds
-  },
-  onError: (error, variables, context) => {
+  {'}'},
+  onError: function(error, variables, context) {'{'}
     // Called when the mutation fails
-  },
-  onSettled: (data, error, variables, context) => {
+  {'}'},
+  onSettled: function(data, error, variables, context) {'{'}
     // Called when the mutation completes (success or error)
-  }
-});</pre>
+  {'}'}
+{'}'});</pre>
         </div>
         
         <p className="mb-4">

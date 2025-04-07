@@ -295,10 +295,10 @@ const UseMemo = () => {
         <p className="mb-4">Here's the basic syntax of useMemo:</p>
         
         <div className="bg-sidebar rounded-md p-4 my-4 font-code text-sm">
-          <pre>const memoizedValue = useMemo(() => {
+          <pre>const memoizedValue = useMemo(function() {'{'}
   // Perform expensive calculation
   return computeExpensiveValue(a, b);
-}, [a, b]); // Only recalculate if a or b changes</pre>
+{'}'}, [a, b]); // Only recalculate if a or b changes</pre>
         </div>
         
         <p className="mb-2">

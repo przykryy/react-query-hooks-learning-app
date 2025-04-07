@@ -1,6 +1,6 @@
 import React from 'react';
-import { NextSteps } from '@/components/tutorial/NextSteps';
-import { LearningObjectives } from '@/components/tutorial/LearningObjectives';
+import NextSteps from '@/components/tutorial/NextSteps';
+import LearningObjectives from '@/components/tutorial/LearningObjectives';
 import CodeExample from '@/components/tutorial/CodeExample';
 import Quiz from '@/components/tutorial/Quiz';
 
@@ -520,60 +520,60 @@ const quizQuestions = [
     id: '1',
     question: 'What is the primary purpose of query invalidation in TanStack Query?',
     options: [
-      'To delete data from the cache permanently',
-      'To mark queries as stale and potentially trigger refetching',
-      'To prevent queries from executing',
-      'To save memory by removing unused queries'
+      { id: 'a', text: 'To delete data from the cache permanently' },
+      { id: 'b', text: 'To mark queries as stale and potentially trigger refetching' },
+      { id: 'c', text: 'To prevent queries from executing' },
+      { id: 'd', text: 'To save memory by removing unused queries' }
     ],
-    correctAnswerIndex: 1,
+    correctAnswer: 'b',
     explanation: 'Query invalidation marks queries as stale, which can trigger refetching based on your refetch configuration. It doesn\'t delete data but rather signals that the cached data may no longer be accurate.'
   },
   {
     id: '2',
     question: 'Which method is used to invalidate queries in TanStack Query?',
     options: [
-      'queryClient.removeQueries()',
-      'queryClient.resetQueries()',
-      'queryClient.invalidateQueries()',
-      'queryClient.clearQueries()'
+      { id: 'a', text: 'queryClient.removeQueries()' },
+      { id: 'b', text: 'queryClient.resetQueries()' },
+      { id: 'c', text: 'queryClient.invalidateQueries()' },
+      { id: 'd', text: 'queryClient.clearQueries()' }
     ],
-    correctAnswerIndex: 2,
+    correctAnswer: 'c',
     explanation: 'queryClient.invalidateQueries() is the method used to mark queries as stale and potentially trigger refetching. The other methods have different purposes: removeQueries removes queries from the cache, and resetQueries resets query data to its initial state.'
   },
   {
     id: '3',
     question: 'How can you invalidate all queries related to "todos" regardless of any additional query key parameters?',
     options: [
-      'queryClient.invalidateQueries({ queryKey: ["todos"] })',
-      'queryClient.invalidateQueries({ queryKey: "todos" })',
-      'queryClient.invalidateQueries({ exact: true, queryKey: ["todos"] })',
-      'queryClient.invalidateQueries({ type: "todos" })'
+      { id: 'a', text: 'queryClient.invalidateQueries({ queryKey: ["todos"] })' },
+      { id: 'b', text: 'queryClient.invalidateQueries({ queryKey: "todos" })' },
+      { id: 'c', text: 'queryClient.invalidateQueries({ exact: true, queryKey: ["todos"] })' },
+      { id: 'd', text: 'queryClient.invalidateQueries({ type: "todos" })' }
     ],
-    correctAnswerIndex: 0,
+    correctAnswer: 'a',
     explanation: 'queryClient.invalidateQueries({ queryKey: ["todos"] }) will invalidate all queries whose key starts with "todos", including nested queries like ["todos", 1], ["todos", "active"], etc. To match only the exact key, you would add the exact: true option.'
   },
   {
     id: '4',
     question: 'When would you use exact: true with invalidateQueries?',
     options: [
-      'When you want to invalidate all queries in the cache',
-      'When you want to invalidate only a specific query with an exact match on the query key',
-      'When you want to ensure queries are refetched immediately',
-      'When you want to prevent specific queries from being invalidated'
+      { id: 'a', text: 'When you want to invalidate all queries in the cache' },
+      { id: 'b', text: 'When you want to invalidate only a specific query with an exact match on the query key' },
+      { id: 'c', text: 'When you want to ensure queries are refetched immediately' },
+      { id: 'd', text: 'When you want to prevent specific queries from being invalidated' }
     ],
-    correctAnswerIndex: 1,
+    correctAnswer: 'b',
     explanation: 'The exact: true option ensures that only queries with the exact query key match are invalidated. Without this option, invalidation applies to the specified query key and any query keys that include it as a prefix.'
   },
   {
     id: '5',
     question: 'Which approach is most appropriate when you need to invalidate multiple unrelated queries after a complex operation?',
     options: [
-      'Use multiple separate invalidateQueries calls',
-      'Use a single invalidateQueries call with a common prefix',
-      'Use queryClient.clear() to invalidate all queries',
-      'Use queryClient.invalidateQueries() with a predicate function'
+      { id: 'a', text: 'Use multiple separate invalidateQueries calls' },
+      { id: 'b', text: 'Use a single invalidateQueries call with a common prefix' },
+      { id: 'c', text: 'Use queryClient.clear() to invalidate all queries' },
+      { id: 'd', text: 'Use queryClient.invalidateQueries() with a predicate function' }
     ],
-    correctAnswerIndex: 3,
+    correctAnswer: 'd',
     explanation: 'Using a predicate function with invalidateQueries gives you the most flexibility for invalidating multiple unrelated queries based on custom logic. You can examine each query\'s key and determine whether it should be invalidated.'
   }
 ];
@@ -607,14 +607,16 @@ const QueryInvalidationPage: React.FC = () => {
         
         <div className="bg-sidebar rounded-md p-4 my-4 font-code text-sm">
           <pre>// Invalidate a specific query
-queryClient.invalidateQueries({ queryKey: ['todos'] });
+queryClient.invalidateQueries({'{'}
+  queryKey: ['todos']
+{'}'});
 
 // Invalidate with more options
-queryClient.invalidateQueries({
+queryClient.invalidateQueries({'{'}
   queryKey: ['todos'],
   exact: true,       // Match only this exact key
   refetchType: 'all' // 'active' (default) or 'all' or 'none'
-});</pre>
+{'}'});</pre>
         </div>
         
         <p className="mb-4">
