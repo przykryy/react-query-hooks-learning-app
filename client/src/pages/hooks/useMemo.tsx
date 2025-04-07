@@ -6,9 +6,10 @@ import Quiz from '@/components/tutorial/Quiz';
 import NextSteps from '@/components/tutorial/NextSteps';
 import { ChevronRight } from 'lucide-react';
 import { useProgress } from '@/hooks/use-progress';
+import { mockData } from '@/hooks/use-code-execution';
 
-const basicMemoExample = `import React, { useState, useMemo } from 'react';
-
+const basicMemoExample = `
+function App() {
 // A compute-heavy function to calculate prime numbers
 function calculatePrimes(max) {
   console.log('Calculating primes...'); // To show when calculation runs
@@ -32,12 +33,12 @@ function calculatePrimes(max) {
 }
 
 function PrimeCalculator() {
-  const [maxNumber, setMaxNumber] = useState(100);
-  const [toggle, setToggle] = useState(false);
+  const [maxNumber, setMaxNumber] = React.useState(100);
+  const [toggle, setToggle] = React.useState(false);
   
   // useMemo will only recalculate when maxNumber changes
   // not when toggle changes
-  const primes = useMemo(() => {
+  const primes = React.useMemo(() => {
     return calculatePrimes(maxNumber);
   }, [maxNumber]);
   
@@ -84,20 +85,19 @@ function PrimeCalculator() {
     </div>
   );
 }
-
-// For our example display
-export default function App() {
   return <PrimeCalculator />;
 }`;
 
-const expensivePropsExample = `import React, { useState, useMemo } from 'react';
-
+const expensivePropsExample = `
 // ProductList component that accepts a list of products and filters
+function expensivePropsExample() {
+${mockData}
+
 function ProductList({ products, filterText }) {
   console.log('ProductList render');
   
   // Expensive filter operation
-  const filteredProducts = useMemo(() => {
+  const filteredProducts = React.useMemo(() => {
     console.log('Filtering products...');
     return products.filter(product =>
       product.name.toLowerCase().includes(filterText.toLowerCase())
@@ -114,7 +114,7 @@ function ProductList({ products, filterText }) {
           <li key={product.id} className="p-2 mb-2 bg-muted rounded">
             <div className="font-medium">{product.name}</div>
             <div className="text-sm text-muted-foreground">
-              ${product.price.toFixed(2)}
+              \${product.price.toFixed(2)}
             </div>
           </li>
         ))}
@@ -125,11 +125,11 @@ function ProductList({ products, filterText }) {
 
 // Main app component
 function ProductFilterApp() {
-  const [filterText, setFilterText] = useState('');
-  const [darkMode, setDarkMode] = useState(false);
+  const [filterText, setFilterText] = React.useState('');
+  const [darkMode, setDarkMode] = React.useState(false);
   
   // Instead of creating products here, we'll use the products from our mock data
-  const allProducts = useMemo(() => {
+  const allProducts = React.useMemo(() => {
     console.log('Using products from mock data...');
     // Use the products array defined in our sandbox environment
     return products || generateProductList(20);
@@ -172,9 +172,6 @@ function ProductFilterApp() {
     </div>
   );
 }
-
-// For our example display
-export default function App() {
   return <ProductFilterApp />;
 }`;
 

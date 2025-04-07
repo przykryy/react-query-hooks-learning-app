@@ -7,13 +7,12 @@ import NextSteps from '@/components/tutorial/NextSteps';
 import { ChevronRight } from 'lucide-react';
 import { useProgress } from '@/hooks/use-progress';
 
-const basicEffectExample = `import React, { useState, useEffect } from 'react';
-
+const basicEffectExample = `
 function Timer() {
-  const [seconds, setSeconds] = useState(0);
-  const [isActive, setIsActive] = useState(false);
+  const [seconds, setSeconds] = React.useState(0);
+  const [isActive, setIsActive] = React.useState(false);
   
-  useEffect(() => {
+  React.useEffect(() => {
     let interval = null;
     
     if (isActive) {
@@ -61,22 +60,15 @@ function Timer() {
       </div>
     </div>
   );
-}
-
-// For our example display
-export default function App() {
-  return <Timer />;
 }`;
 
-const fetchDataExample = `import React, { useState, useEffect } from 'react';
-
-function UserProfile() {
-  const [userId, setUserId] = useState(1);
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const fetchDataExample = `function UserProfile() {
+  const [userId, setUserId] = React.useState(1);
+  const [user, setUser] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(null);
   
-  useEffect(() => {
+  React.useEffect(() => {
     // Reset states when userId changes
     setLoading(true);
     setError(null);
@@ -143,11 +135,6 @@ function UserProfile() {
       </div>
     </div>
   );
-}
-
-// For our example display
-export default function App() {
-  return <UserProfile />;
 }`;
 
 const quizQuestions = [

@@ -7,11 +7,10 @@ import NextSteps from '@/components/tutorial/NextSteps';
 import { ChevronRight } from 'lucide-react';
 import { useProgress } from '@/hooks/use-progress';
 
-const counterExample = `import React, { useState } from 'react';
-
+const counterExample = `
 function Counter() {
   // Initialize state with a value of 0
-  const [count, setCount] = useState(0);
+  const [count, setCount] = React.useState(0);
 
   // Function to increment the counter
   const increment = () => {
@@ -53,22 +52,12 @@ function Counter() {
       </div>
     </div>
   );
-}
-
-// This is just for our example display
-export default function App() {
-  return (
-    <div className="text-center">
-      <Counter />
-    </div>
-  );
 }`;
 
-const formExample = `import React, { useState } from 'react';
-
+const formExample = `
 function UserForm() {
   // Initialize state for form data
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = React.useState({
     username: '',
     email: '',
     role: 'developer'
@@ -143,11 +132,6 @@ function UserForm() {
       </form>
     </div>
   );
-}
-
-// This is just for our example display
-export default function App() {
-  return <UserForm />;
 }`;
 
 const quizQuestions = [

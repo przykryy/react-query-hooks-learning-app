@@ -7,8 +7,10 @@ import NextSteps from '@/components/tutorial/NextSteps';
 import { ChevronRight } from 'lucide-react';
 import { useProgress } from '@/hooks/use-progress';
 
-const basicReducerExample = `import React, { useReducer } from 'react';
+const basicReducerExample = `
 
+
+function Counter() {
 // Step 1: Define an initial state
 const initialState = { count: 0 };
 
@@ -27,10 +29,8 @@ function reducer(state, action) {
       throw new Error('Unknown action type');
   }
 }
-
-function Counter() {
   // Step 3: Call useReducer with the reducer function and initial state
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = React.useReducer(reducer, initialState);
   
   return (
     <div className="p-4 text-center">
@@ -69,15 +69,10 @@ function Counter() {
       </div>
     </div>
   );
-}
-
-// For our example display
-export default function App() {
-  return <Counter />;
 }`;
 
-const complexStateExample = `import React, { useReducer, useState } from 'react';
-
+const complexStateExample = `
+function complexStateExample() {
 // Step 1: Define the initial state for a shopping cart
 const initialState = {
   items: [],
@@ -192,7 +187,7 @@ const products = [
 
 function ShoppingCart() {
   // Step 3: Use the reducer
-  const [cart, dispatch] = useReducer(cartReducer, initialState);
+  const [cart, dispatch] = React.useReducer(cartReducer, initialState);
   
   // Handle adding product to cart
   const addToCart = (product) => {
@@ -235,7 +230,7 @@ function ShoppingCart() {
           {products.map(product => (
             <div key={product.id} className="p-3 border rounded bg-muted">
               <div className="font-medium">{product.name}</div>
-              <div className="text-sm mb-2">${product.price.toFixed(2)}</div>
+              <div className="text-sm mb-2">\${product.price.toFixed(2)}</div>
               <button
                 onClick={() => addToCart(product)}
                 className="w-full px-2 py-1 bg-primary text-primary-foreground rounded text-sm"
@@ -268,7 +263,7 @@ function ShoppingCart() {
                 <div>
                   <div>{item.name}</div>
                   <div className="text-sm text-muted-foreground">
-                    ${item.price.toFixed(2)} x 
+                    \${item.price.toFixed(2)} x 
                     <input
                       type="number"
                       min="1"
@@ -276,7 +271,7 @@ function ShoppingCart() {
                       onChange={(e) => updateQuantity(item.id, e.target.value)}
                       className="w-12 mx-1 px-1 py-0 bg-sidebar rounded"
                     />
-                    = ${(item.price * item.quantity).toFixed(2)}
+                    = \${(item.price * item.quantity).toFixed(2)}
                   </div>
                 </div>
                 <button
@@ -290,7 +285,7 @@ function ShoppingCart() {
             
             <div className="p-3 bg-sidebar rounded flex justify-between font-medium">
               <span>Total:</span>
-              <span>${cart.total.toFixed(2)}</span>
+              <span>\${cart.total.toFixed(2)}</span>
             </div>
           </div>
         )}
@@ -315,10 +310,7 @@ function ShoppingCart() {
     </div>
   );
 }
-
-// For our example display
-export default function App() {
-  return <ShoppingCart />;
+return <ShoppingCart />;
 }`;
 
 const quizQuestions = [

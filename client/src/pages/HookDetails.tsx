@@ -134,10 +134,10 @@ const HookDetails: React.FC = () => {
       {/* Navigation Controls */}
       <div className="flex flex-col sm:flex-row justify-between items-center py-4 border-t border-border mt-8">
         {prevModule ? (
-          <Link href={`/hooks/${prevModule.id}`}>
+          <Link href={`/hooks/${prevModule}`}>
             <div className="flex items-center text-muted-foreground hover:text-foreground mb-4 sm:mb-0">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              <span>{prevModule.title}</span>
+              <span>{prevModule}</span>
             </div>
           </Link>
         ) : (
@@ -150,9 +150,9 @@ const HookDetails: React.FC = () => {
         )}
         
         {nextModule && (
-          <Link href={`/hooks/${nextModule.id}`}>
+          <Link href={`/hooks/${nextModule}`}>
             <div className="flex items-center text-primary hover:text-primary/90">
-              <span>{nextModule.title}</span>
+              <span>{nextModule}</span>
               <ArrowRight className="ml-2 h-4 w-4" />
             </div>
           </Link>

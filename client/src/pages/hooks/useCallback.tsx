@@ -7,14 +7,14 @@ import NextSteps from '@/components/tutorial/NextSteps';
 import { ChevronRight } from 'lucide-react';
 import { useProgress } from '@/hooks/use-progress';
 
-const basicCallbackExample = `import React, { useState, useCallback } from 'react';
-
+const basicCallbackExample = `
+function basicCallbackExample() {
 function ButtonWithCallback() {
-  const [count, setCount] = useState(0);
-  const [otherState, setOtherState] = useState(0);
+  const [count, setCount] = React.useState(0);
+  const [otherState, setOtherState] = React.useState(0);
   
   // Without useCallback, this function would be recreated on every render
-  const handleClick = useCallback(() => {
+  const handleClick = React.useCallback(() => {
     setCount(prevCount => prevCount + 1);
     console.log('Button clicked!');
   }, []); // Empty dependency array means this function is created once
@@ -74,25 +74,21 @@ const ChildComponent = React.memo(({ onClick, label }) => {
     </button>
   );
 });
-
-// For our example display
-export default function App() {
-  return <ButtonWithCallback />;
+ return <ButtonWithCallback />;
 }`;
 
-const dependencyArrayExample = `import React, { useState, useCallback } from 'react';
-
+const dependencyArrayExample = `
 function TodoApp() {
-  const [todos, setTodos] = useState([
+  const [todos, setTodos] = React.useState([
     { id: 1, text: 'Learn React', completed: false },
     { id: 2, text: 'Learn useCallback', completed: false },
     { id: 3, text: 'Build something cool', completed: false }
   ]);
-  const [newTodo, setNewTodo] = useState('');
-  const [filter, setFilter] = useState('all');
+  const [newTodo, setNewTodo] = React.useState('');
+  const [filter, setFilter] = React.useState('all');
   
   // Function with dependencies - recreated when todos or filter changes
-  const getFilteredTodos = useCallback(() => {
+  const getFilteredTodos = React.useCallback(() => {
     console.log('Filtering todos with:', filter);
     switch (filter) {
       case 'completed':
@@ -105,7 +101,7 @@ function TodoApp() {
   }, [todos, filter]);
   
   // Add todo function - only recreated when todos change
-  const addTodo = useCallback(() => {
+  const addTodo = React.useCallback(() => {
     if (!newTodo.trim()) return;
     
     setTodos(prevTodos => [
@@ -120,7 +116,7 @@ function TodoApp() {
   }, [newTodo]);
   
   // Toggle todo - recreated when todos changes
-  const toggleTodo = useCallback((id) => {
+  const toggleTodo = React.useCallback((id) => {
     console.log('Toggling todo:', id);
     setTodos(prevTodos =>
       prevTodos.map(todo =>
@@ -128,6 +124,26 @@ function TodoApp() {
       )
     );
   }, []);
+
+  
+// A memoized TodoItem component
+const TodoItem = React.memo(({ todo, toggleTodo }) => {
+  console.log(\`TodoItem "\${todo.text}" rendered\`);
+  
+  return (
+    <div className="flex items-center p-2 bg-muted rounded">
+      <input
+        type="checkbox"
+        checked={todo.completed}
+        onChange={() => toggleTodo(todo.id)}
+        className="mr-3"
+      />
+      <span className={todo.completed ? 'line-through text-muted-foreground' : ''}>
+        {todo.text}
+      </span>
+    </div>
+  );
+});
   
   // Get filtered todos for rendering
   const filteredTodos = getFilteredTodos();
@@ -206,30 +222,7 @@ function TodoApp() {
     </div>
   );
 }
-
-// A memoized TodoItem component
-const TodoItem = React.memo(({ todo, toggleTodo }) => {
-  console.log(\`TodoItem "\${todo.text}" rendered\`);
-  
-  return (
-    <div className="flex items-center p-2 bg-muted rounded">
-      <input
-        type="checkbox"
-        checked={todo.completed}
-        onChange={() => toggleTodo(todo.id)}
-        className="mr-3"
-      />
-      <span className={todo.completed ? 'line-through text-muted-foreground' : ''}>
-        {todo.text}
-      </span>
-    </div>
-  );
-});
-
-// For our example display
-export default function App() {
-  return <TodoApp />;
-}`;
+`;
 
 const quizQuestions = [
   {

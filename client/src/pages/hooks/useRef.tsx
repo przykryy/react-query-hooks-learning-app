@@ -7,12 +7,11 @@ import NextSteps from '@/components/tutorial/NextSteps';
 import { ChevronRight } from 'lucide-react';
 import { useProgress } from '@/hooks/use-progress';
 
-const domRefExample = `import React, { useRef, useState } from 'react';
-
+const domRefExample = `
 function TextInputWithFocus() {
   // Create a ref to store the DOM input element
-  const inputRef = useRef(null);
-  const [inputValue, setInputValue] = useState('');
+  const inputRef = React.useRef(null);
+  const [inputValue, setInputValue] = React.useState('');
   
   // Function to focus the input element
   const focusInput = () => {
@@ -52,31 +51,25 @@ function TextInputWithFocus() {
       </p>
     </div>
   );
-}
-
-// For our example display
-export default function App() {
-  return <TextInputWithFocus />;
 }`;
 
-const valueRefExample = `import React, { useRef, useState, useEffect } from 'react';
-
+const valueRefExample = `
 function StopwatchWithPrevious() {
   // Use a ref to keep track of the previous time
-  const [time, setTime] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
+  const [time, setTime] = React.useState(0);
+  const [isRunning, setIsRunning] = React.useState(false);
   
   // This ref will persist between renders and won't cause re-renders
-  const previousTimeRef = useRef(0);
-  const intervalRef = useRef(null);
+  const previousTimeRef = React.useRef(0);
+  const intervalRef = React.useRef(null);
   
   // Update the previousTimeRef when time changes
-  useEffect(() => {
+  React.useEffect(() => {
     previousTimeRef.current = time;
   }, [time]);
   
   // Handle timer start/stop
-  useEffect(() => {
+  React.useEffect(() => {
     if (isRunning) {
       intervalRef.current = setInterval(() => {
         setTime(t => t + 1);
@@ -129,11 +122,6 @@ function StopwatchWithPrevious() {
       </div>
     </div>
   );
-}
-
-// For our example display
-export default function App() {
-  return <StopwatchWithPrevious />;
 }`;
 
 const quizQuestions = [

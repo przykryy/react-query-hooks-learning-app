@@ -134,10 +134,10 @@ const QueryDetails: React.FC = () => {
       {/* Navigation Controls */}
       <div className="flex flex-col sm:flex-row justify-between items-center py-4 border-t border-border mt-8">
         {prevModule ? (
-          <Link href={`/query/${prevModule.id}`}>
+          <Link href={`/query/${prevModule}`}>
             <div className="flex items-center text-muted-foreground hover:text-foreground mb-4 sm:mb-0">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              <span>{prevModule.title}</span>
+              <span>{prevModule}</span>
             </div>
           </Link>
         ) : (
@@ -150,9 +150,9 @@ const QueryDetails: React.FC = () => {
         )}
         
         {nextModule && (
-          <Link href={`/query/${nextModule.id}`}>
+          <Link href={`/query/${nextModule}`}>
             <div className="flex items-center text-secondary hover:text-secondary/90">
-              <span>{nextModule.title}</span>
+              <span>{nextModule}</span>
               <ArrowRight className="ml-2 h-4 w-4" />
             </div>
           </Link>

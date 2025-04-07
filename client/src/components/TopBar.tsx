@@ -3,7 +3,6 @@ import { useLocation } from 'wouter';
 import { Menu, HelpCircle, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { getTitleFromPath } from '@/lib/utils';
 
 interface TopBarProps {
   toggleSidebar: () => void;
@@ -11,7 +10,6 @@ interface TopBarProps {
 
 const TopBar: React.FC<TopBarProps> = ({ toggleSidebar }) => {
   const [location] = useLocation();
-  const pageTitle = getTitleFromPath(location);
 
   return (
     <div className="bg-card border-b border-border p-4 flex items-center justify-between">
@@ -24,7 +22,7 @@ const TopBar: React.FC<TopBarProps> = ({ toggleSidebar }) => {
         >
           <Menu className="h-5 w-5" />
         </Button>
-        <h2 className="text-lg font-semibold text-foreground">{pageTitle}</h2>
+        <h2 className="text-lg font-semibold text-foreground">React Learning App</h2>
       </div>
       <div className="flex items-center space-x-4">
         <Button variant="secondary" size="sm" className="text-sm">

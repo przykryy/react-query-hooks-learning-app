@@ -105,3 +105,49 @@ export function useCodeExecution() {
 
   return { executeCode, result };
 }
+
+
+export const mockData = `
+// Define global mock data used by various examples
+
+// Sample products data for shopping cart and useMemo examples
+const product = { id: 1, name: 'React Hoodie', price: 45.99 };
+const cartItem = { id: 1, name: 'React Hoodie', price: 45.99 };
+const cartTotal = 45.99;
+
+// Generate a products array for all examples that need it
+const generateProducts = () => {
+  return [
+    { id: 1, name: 'React Hoodie', price: 45.99 },
+    { id: 2, name: 'JavaScript Mug', price: 12.99 },
+    { id: 3, name: 'TypeScript Hat', price: 22.50 }
+  ];
+};
+
+// Define or overwrite products in the current scope
+const products = generateProducts();
+
+// Helper function to generate product list for useMemo examples
+const generateProductList = (count) => {
+  return Array.from({ length: count }, (_, i) => ({
+    id: i,
+    name: \`Product \${i + 1}\`,
+    price: Math.round((Math.random() * 100 + 1) * 100) / 100
+  }));
+};
+
+// Mock tasks for useReducer examples
+const initialTasks = [
+  { id: 1, text: 'Learn React Hooks', completed: true },
+  { id: 2, text: 'Build a project with useState', completed: false },
+  { id: 3, text: 'Master useEffect', completed: false }
+];
+
+// Sample data for useMemo examples
+const sampleUserData = [
+  { id: 1, name: 'John', age: 25, role: 'Developer' },
+  { id: 2, name: 'Sarah', age: 32, role: 'Designer' },
+  { id: 3, name: 'Michael', age: 29, role: 'Developer' },
+  { id: 4, name: 'Jessica', age: 27, role: 'Manager' }
+];
+`;

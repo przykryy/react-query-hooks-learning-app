@@ -7,18 +7,17 @@ import NextSteps from '@/components/tutorial/NextSteps';
 import { ChevronRight } from 'lucide-react';
 import { useProgress } from '@/hooks/use-progress';
 
-const basicCustomHookExample = `import React, { useState, useEffect } from 'react';
-
+const basicCustomHookExample = `
 // Step 1: Create a custom hook
 function useWindowSize() {
   // State to store window dimensions
-  const [windowSize, setWindowSize] = useState({
+  const [windowSize, setWindowSize] = React.useState({
     width: window.innerWidth,
     height: window.innerHeight
   });
   
   // Effect to update state on window resize
-  useEffect(() => {
+  React.useEffect(() => {
     // Handler to call on window resize
     function handleResize() {
       setWindowSize({
@@ -63,31 +62,26 @@ function WindowSizeDisplay() {
     </div>
   );
 }
+`;
 
-// For our example display
-export default function App() {
-  return <WindowSizeDisplay />;
-}`;
-
-const complexCustomHookExample = `import React, { useState, useEffect, useCallback } from 'react';
-
+const complexCustomHookExample = `
 // Custom hook for form validation and handling
 function useForm(initialValues, validate) {
   // State for values, errors, and form status
-  const [values, setValues] = useState(initialValues);
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isValid, setIsValid] = useState(false);
+  const [values, setValues] = React.useState(initialValues);
+  const [errors, setErrors] = React.useState({});
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [isValid, setIsValid] = React.useState(false);
   
   // Validate form values whenever they change
-  useEffect(() => {
+  React.useEffect(() => {
     const validationErrors = validate(values);
     setErrors(validationErrors);
     setIsValid(Object.keys(validationErrors).length === 0);
   }, [values, validate]);
   
   // Handle input changes
-  const handleChange = useCallback((e) => {
+  const handleChange = React.useCallback((e) => {
     const { name, value } = e.target;
     setValues(prevValues => ({
       ...prevValues,
@@ -96,7 +90,7 @@ function useForm(initialValues, validate) {
   }, []);
   
   // Handle form submission
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = React.useCallback((e) => {
     if (e) e.preventDefault();
     setIsSubmitting(true);
     
@@ -107,7 +101,7 @@ function useForm(initialValues, validate) {
   }, [errors]);
   
   // Reset form to initial values
-  const resetForm = useCallback(() => {
+  const resetForm = React.useCallback(() => {
     setValues(initialValues);
     setErrors({});
     setIsSubmitting(false);
@@ -245,11 +239,7 @@ Password: \${values.password.replace(/./g, '*')}\`);
     </div>
   );
 }
-
-// For our example display
-export default function App() {
-  return <SignupForm />;
-}`;
+`;
 
 const quizQuestions = [
   {

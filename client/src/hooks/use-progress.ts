@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback } from 'react';
 import { apiRequest } from '@/lib/queryClient';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -21,15 +21,15 @@ const DEMO_USER_ID = 1;
 
 export function useProgress() {
   const queryClient = useQueryClient();
+
   
   // Fetch current progress data
   const { data: progressData, isLoading } = useQuery({
     queryKey: [`/api/progress/${DEMO_USER_ID}`],
-    onError: () => {
-      // Silently fail and use default progress
-      // This allows the app to work without a backend
-      console.error('Failed to fetch progress data. Using default values.');
-    }
+    throwOnError(error, query) {
+      console.error('Error fetching progress data:', error);
+      throw error;
+    },
   });
   
   // Calculate progress percentages
@@ -68,7 +68,7 @@ export function useProgress() {
   }, []);
   
   // Current progress percentages
-  const progress = calculateProgressPercentages(progressData);
+  const progress = calculateProgressPercentages(progressData as any[]);
   
   // Mark a tutorial as viewed
   const markTutorialViewedMutation = useMutation({
@@ -88,7 +88,7 @@ export function useProgress() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [`/api/progress/${DEMO_USER_ID}`] });
+      // queryClient.invalidateQueries({ queryKey: [`/api/progress/${DEMO_USER_ID}`] });
     }
   });
   
@@ -116,11 +116,11 @@ export function useProgress() {
   
   const markTutorialViewed = useCallback((tutorialId: string) => {
     markTutorialViewedMutation.mutate(tutorialId);
-  }, [markTutorialViewedMutation]);
+  }, []);
   
   const updateQuizProgress = useCallback((tutorialId: string, score: number, answers: Record<string, string>) => {
     updateQuizProgressMutation.mutate({ tutorialId, score, answers });
-  }, [updateQuizProgressMutation]);
+  }, []);
   
   return {
     progress,

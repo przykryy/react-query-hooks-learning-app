@@ -7,17 +7,16 @@ import NextSteps from '@/components/tutorial/NextSteps';
 import { ChevronRight } from 'lucide-react';
 import { useProgress } from '@/hooks/use-progress';
 
-const basicContextExample = `import React, { createContext, useContext, useState } from 'react';
-
-// Step 1: Create a context with a default value
-const ThemeContext = createContext({
+const basicContextExample = `
+function ThemeApp() {
+var ThemeContext = React.createContext({
   isDark: false,
   toggleTheme: () => {}
 });
 
 // Step 2: Create a provider component
 function ThemeProvider({ children }) {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = React.useState(false);
   
   // Function to toggle theme
   const toggleTheme = () => {
@@ -40,7 +39,7 @@ function ThemeProvider({ children }) {
 // Step 3: Create components that consume the context
 function ThemedButton() {
   // Use the useContext hook to access the context value
-  const { isDark, toggleTheme } = useContext(ThemeContext);
+  const { isDark, toggleTheme } = React.useContext(ThemeContext);
   
   return (
     <button
@@ -58,7 +57,7 @@ function ThemedButton() {
 
 function ThemedText() {
   // Another component consuming the same context
-  const { isDark } = useContext(ThemeContext);
+  const { isDark } = React.useContext(ThemeContext);
   
   return (
     <p className="mt-4">
@@ -79,19 +78,19 @@ function App() {
     </ThemeProvider>
   );
 }
+return <App/>
+}`;
 
-export default App;`;
-
-const nestedContextExample = `import React, { createContext, useContext, useState } from 'react';
-
+const nestedContextExample = `
+function nestedContext() {
 // Step 1: Create the contexts
-const ThemeContext = createContext('light');
-const UserContext = createContext(null);
+const ThemeContext = React.createContext('light');
+const UserContext = React.createContext(null);
 
 // Step 2: Create Provider components
 function AppProvider({ children }) {
-  const [theme, setTheme] = useState('light');
-  const [user, setUser] = useState({
+  const [theme, setTheme] = React.useState('light');
+  const [user, setUser] = React.useState({
     name: 'Guest User',
     isLoggedIn: false,
     role: 'visitor'
@@ -128,7 +127,7 @@ function AppProvider({ children }) {
 
 // Step 3: Create custom hooks
 function useTheme() {
-  const context = useContext(ThemeContext);
+  const context = React.useContext(ThemeContext);
   if (context === undefined) {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
@@ -136,7 +135,7 @@ function useTheme() {
 }
 
 function useUser() {
-  const context = useContext(UserContext);
+  const context = React.useContext(UserContext);
   if (context === undefined) {
     throw new Error('useUser must be used within a UserProvider');
   }
@@ -258,8 +257,8 @@ function App() {
     </AppProvider>
   );
 }
-
-export default App;`;
+  return <App />
+}`;
 
 const quizQuestions = [
   {
