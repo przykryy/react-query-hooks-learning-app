@@ -128,14 +128,11 @@ function ProductFilterApp() {
   const [filterText, setFilterText] = useState('');
   const [darkMode, setDarkMode] = useState(false);
   
-  // Create a large array of products
+  // Instead of creating products here, we'll use the products from our mock data
   const allProducts = useMemo(() => {
-    console.log('Creating product list...');
-    return Array.from({ length: 100 }, (_, i) => ({
-      id: i,
-      name: \`Product \${i + 1}\`,
-      price: Math.random() * 100 + 1
-    }));
+    console.log('Using products from mock data...');
+    // Use the products array defined in our sandbox environment
+    return products || generateProductList(20);
   }, []);
   
   return (

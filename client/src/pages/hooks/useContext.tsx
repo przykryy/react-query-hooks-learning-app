@@ -82,107 +82,129 @@ function App() {
 
 export default App;`;
 
-const nestedContextExample = `import React, { createContext, useContext, useState, useReducer } from 'react';
+const nestedContextExample = `import React, { createContext, useContext, useState } from 'react';
 
 // Step 1: Create the contexts
-const UserContext = createContext();
-const ShoppingCartContext = createContext();
+const ThemeContext = createContext('light');
+const UserContext = createContext(null);
 
-// Shopping cart reducer
-function cartReducer(state, action) {
-  switch (action.type) {
-    case 'ADD_ITEM':
-      return [...state, action.payload];
-    case 'REMOVE_ITEM':
-      return state.filter(item => item.id !== action.payload);
-    case 'CLEAR_CART':
-      return [];
-    default:
-      return state;
-  }
-}
-
-// Step 2: Create provider components
-function AppProviders({ children }) {
-  // User state
+// Step 2: Create Provider components
+function AppProvider({ children }) {
+  const [theme, setTheme] = useState('light');
   const [user, setUser] = useState({
-    name: 'John Doe',
-    isLoggedIn: true
+    name: 'Guest User',
+    isLoggedIn: false,
+    role: 'visitor'
   });
   
-  // Cart state using useReducer
-  const [cart, dispatch] = useReducer(cartReducer, []);
-  
-  // Login/logout function
-  const toggleLogin = () => {
-    setUser(prevUser => ({
-      ...prevUser,
-      isLoggedIn: !prevUser.isLoggedIn
-    }));
+  const toggleTheme = () => {
+    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
   };
   
-  // Add a product to cart
-  const addToCart = (product) => {
-    dispatch({ type: 'ADD_ITEM', payload: product });
+  const login = () => {
+    setUser({
+      name: 'John Doe',
+      isLoggedIn: true,
+      role: 'admin'
+    });
   };
   
-  // Remove a product from cart
-  const removeFromCart = (productId) => {
-    dispatch({ type: 'REMOVE_ITEM', payload: productId });
-  };
-  
-  // Clear the entire cart
-  const clearCart = () => {
-    dispatch({ type: 'CLEAR_CART' });
+  const logout = () => {
+    setUser({
+      name: 'Guest User',
+      isLoggedIn: false,
+      role: 'visitor'
+    });
   };
   
   return (
-    <UserContext.Provider value={{ user, toggleLogin }}>
-      <ShoppingCartContext.Provider value={{ 
-        cart, 
-        addToCart, 
-        removeFromCart, 
-        clearCart 
-      }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <UserContext.Provider value={{ user, login, logout }}>
         {children}
-      </ShoppingCartContext.Provider>
-    </UserContext.Provider>
+      </UserContext.Provider>
+    </ThemeContext.Provider>
   );
 }
 
-// Step 3: Create custom hooks to use the contexts
-function useUser() {
-  const context = useContext(UserContext);
-  if (!context) {
-    throw new Error('useUser must be used within a UserContext.Provider');
+// Step 3: Create custom hooks
+function useTheme() {
+  const context = useContext(ThemeContext);
+  if (context === undefined) {
+    throw new Error('useTheme must be used within a ThemeProvider');
   }
   return context;
 }
 
-function useCart() {
-  const context = useContext(ShoppingCartContext);
-  if (!context) {
-    throw new Error('useCart must be used within a ShoppingCartContext.Provider');
+function useUser() {
+  const context = useContext(UserContext);
+  if (context === undefined) {
+    throw new Error('useUser must be used within a UserProvider');
   }
   return context;
 }
 
 // Step 4: Create components that use the contexts
-function UserProfile() {
-  const { user, toggleLogin } = useUser();
+function ThemedHeader() {
+  const { theme, toggleTheme } = useTheme();
+  
+  const headerStyle = {
+    backgroundColor: theme === 'light' ? '#f0f4f8' : '#1a202c',
+    color: theme === 'light' ? '#1a202c' : '#f0f4f8',
+    padding: '1rem',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '1rem',
+    borderRadius: '0.375rem'
+  };
   
   return (
-    <div className="p-4 bg-muted rounded-md mb-4">
-      <h3 className="font-medium mb-2">User Profile</h3>
-      <p className="mb-2">
-        <strong>Name:</strong> {user.name}
-      </p>
-      <p className="mb-3">
-        <strong>Status:</strong> {user.isLoggedIn ? 'Logged In' : 'Logged Out'}
-      </p>
+    <header style={headerStyle}>
+      <h2>Context Demo App</h2>
       <button 
-        className="px-3 py-1 bg-primary text-primary-foreground rounded"
-        onClick={toggleLogin}
+        onClick={toggleTheme}
+        style={{
+          backgroundColor: theme === 'light' ? '#4299e1' : '#63b3ed',
+          color: 'white',
+          border: 'none',
+          padding: '0.5rem 1rem',
+          borderRadius: '0.25rem',
+          cursor: 'pointer'
+        }}
+      >
+        Switch to {theme === 'light' ? 'Dark' : 'Light'} Theme
+      </button>
+    </header>
+  );
+}
+
+function UserProfile() {
+  const { user, login, logout } = useUser();
+  
+  return (
+    <div 
+      style={{ 
+        padding: '1rem', 
+        backgroundColor: '#f3f4f6', 
+        borderRadius: '0.375rem',
+        marginBottom: '1rem'
+      }}
+    >
+      <h3 style={{ marginBottom: '0.5rem' }}>User Profile</h3>
+      <p>Name: {user.name}</p>
+      <p>Status: {user.isLoggedIn ? 'Logged In' : 'Logged Out'}</p>
+      <p>Role: {user.role}</p>
+      <button
+        onClick={user.isLoggedIn ? logout : login}
+        style={{
+          backgroundColor: user.isLoggedIn ? '#e53e3e' : '#38a169',
+          color: 'white',
+          border: 'none',
+          padding: '0.5rem 1rem',
+          borderRadius: '0.25rem',
+          marginTop: '0.5rem',
+          cursor: 'pointer'
+        }}
       >
         {user.isLoggedIn ? 'Log Out' : 'Log In'}
       </button>
@@ -190,58 +212,50 @@ function UserProfile() {
   );
 }
 
-function ShoppingCart() {
-  const { cart, removeFromCart, clearCart } = useCart();
-  const total = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
+function Content() {
+  const { theme } = useTheme();
+  const { user } = useUser();
+  
+  const contentStyle = {
+    padding: '1rem',
+    backgroundColor: theme === 'light' ? 'white' : '#2d3748',
+    color: theme === 'light' ? '#1a202c' : 'white',
+    borderRadius: '0.375rem',
+    border: '1px solid',
+    borderColor: theme === 'light' ? '#e2e8f0' : '#4a5568'
+  };
   
   return (
-    <div className="p-4 bg-muted rounded-md">
-      <h3 className="font-medium mb-2">Shopping Cart</h3>
-      {cart.length === 0 ? (
-        <p>Your cart is empty</p>
+    <div style={contentStyle}>
+      <h3 style={{ marginBottom: '0.5rem' }}>Content Area</h3>
+      <p>This content is being displayed in {theme} theme mode.</p>
+      
+      {user.isLoggedIn ? (
+        <div style={{ marginTop: '1rem' }}>
+          <p>Welcome back, {user.name}!</p>
+          <p>You have access to this content because you're logged in as {user.role}.</p>
+        </div>
       ) : (
-        <>
-          <ul className="mb-3">
-            {cart.map(item => (
-              <li key={item.id} className="flex justify-between items-center mb-2">
-                <span>{item.name} (${item.price.toFixed(2)})</span>
-                <button 
-                  className="text-xs px-2 py-1 bg-destructive text-destructive-foreground rounded"
-                  onClick={() => removeFromCart(item.id)}
-                >
-                  Remove
-                </button>
-              </li>
-            ))}
-          </ul>
-          <div className="flex justify-between items-center mb-3">
-            <span className="font-medium">Total:</span>
-            <span>${total}</span>
-          </div>
-          <button 
-            className="px-3 py-1 bg-primary text-primary-foreground rounded w-full"
-            onClick={clearCart}
-          >
-            Clear Cart
-          </button>
-        </>
+        <div style={{ marginTop: '1rem' }}>
+          <p>Please log in to see restricted content.</p>
+        </div>
       )}
     </div>
   );
 }
 
-// Step 5: Combine them in an App
+// Step 5: Create the main App component
 function App() {
   return (
-    <AppProviders>
-      <div className="p-4">
-        <h2 className="text-xl font-semibold mb-4">Multiple Contexts Example</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <AppProvider>
+      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem' }}>
+        <ThemedHeader />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <UserProfile />
-          <ShoppingCart />
+          <Content />
         </div>
       </div>
-    </AppProviders>
+    </AppProvider>
   );
 }
 
