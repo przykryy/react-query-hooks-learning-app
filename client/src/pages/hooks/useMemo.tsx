@@ -9,7 +9,6 @@ import { useProgress } from '@/hooks/use-progress';
 import { mockData } from '@/hooks/use-code-execution';
 
 const basicMemoExample = `
-function App() {
 // A compute-heavy function to calculate prime numbers
 function calculatePrimes(max) {
   console.log('Calculating primes...'); // To show when calculation runs
@@ -85,12 +84,11 @@ function PrimeCalculator() {
     </div>
   );
 }
-  return <PrimeCalculator />;
-}`;
+  render(<PrimeCalculator />);
+`;
 
 const expensivePropsExample = `
 // ProductList component that accepts a list of products and filters
-function expensivePropsExample() {
 ${mockData}
 
 function ProductList({ products, filterText }) {
@@ -172,8 +170,8 @@ function ProductFilterApp() {
     </div>
   );
 }
-  return <ProductFilterApp />;
-}`;
+  render(<ProductFilterApp />);
+`;
 
 const quizQuestions = [
   {

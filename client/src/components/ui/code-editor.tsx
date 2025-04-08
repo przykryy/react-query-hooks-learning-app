@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 import { LiveProvider, LivePreview, LiveEditor, LiveError } from 'react-live';
+import * as ReactQuery from '@tanstack/react-query';
 
 interface CodeEditorProps {
   title: string;
@@ -82,7 +83,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
           </Button>
         </div>
       </CardHeader>
-      <LiveProvider code={code}>
+      <LiveProvider code={code} scope={{ ReactQuery }} noInline >
       <style>
           {`
             pre {

@@ -7,20 +7,12 @@ import NextSteps from '@/components/tutorial/NextSteps';
 import { ChevronRight } from 'lucide-react';
 import { useProgress } from '@/hooks/use-progress';
 
-const basicIntroExample = `import React from 'react';
-import { 
-  QueryClient,
-  QueryClientProvider,
-  useQuery
-} from '@tanstack/react-query';
-
-// Create a client
-const queryClient = new QueryClient();
-
-// Component with a basic query
+const basicIntroExample = `
+const queryClient = new ReactQuery.QueryClient();
 function PostsList() {
   // Use the useQuery hook to fetch data
-  const { data, isLoading, error } = useQuery({
+
+  const { data, isLoading, error } = ReactQuery.useQuery({
     queryKey: ['posts'],
     queryFn: async () => {
       const response = await fetch(
@@ -74,31 +66,30 @@ function PostsList() {
 // Root component with the QueryClientProvider
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <ReactQuery.QueryClientProvider client={queryClient}>
       <div className="max-w-md mx-auto">
         <h1 className="text-xl text-center font-semibold my-4">
           TanStack Query Example
         </h1>
         <PostsList />
       </div>
-    </QueryClientProvider>
+    </ReactQuery.QueryClientProvider>
   );
 }
 
-export default App;`;
+render(<App/>);`;
 
-const traditionalFetchingExample = `import React, { useState, useEffect } from 'react';
-
+const traditionalFetchingExample = `
 // Component using traditional React data fetching
 function TraditionalFetching() {
   // State management for everything
-  const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [count, setCount] = useState(0);
+  const [data, setData] = React.useState(null);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [error, setError] = React.useState(null);
+  const [count, setCount] = React.useState(0);
   
   // Fetch data using useEffect
-  useEffect(() => {
+  React.useEffect(() => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
@@ -202,7 +193,7 @@ function FetchingComparison() {
   );
 }
 
-export default FetchingComparison;`;
+render(<FetchingComparison/>);`;
 
 const quizQuestions = [
   {

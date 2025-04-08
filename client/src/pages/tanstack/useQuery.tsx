@@ -7,15 +7,9 @@ import NextSteps from '@/components/tutorial/NextSteps';
 import { ChevronRight } from 'lucide-react';
 import { useProgress } from '@/hooks/use-progress';
 
-const basicQueryExample = `import React from 'react';
-import { 
-  QueryClient, 
-  QueryClientProvider,
-  useQuery 
-} from '@tanstack/react-query';
-
+const basicQueryExample = `
 // Create a client
-const queryClient = new QueryClient();
+const queryClient = new ReactQuery.QueryClient();
 
 // Component that uses useQuery
 function UserProfile() {
@@ -27,7 +21,7 @@ function UserProfile() {
     isSuccess,       // True if the query has data and no errors
     isFetching,      // True whenever the query is fetching data
     refetch          // Function to manually trigger the query
-  } = useQuery({
+  } = ReactQuery.useQuery({
     queryKey: ['user', 1], // Unique identifier for this query
     queryFn: async () => {
       // Function that fetches the data
@@ -113,37 +107,30 @@ function UserProfile() {
 // Main app with provider
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <ReactQuery.QueryClientProvider client={queryClient}>
       <div className="p-4">
         <h1 className="text-2xl font-bold text-center mb-6">
           useQuery Hook Example
         </h1>
         <UserProfile />
       </div>
-    </QueryClientProvider>
+    </ReactQuery.QueryClientProvider>
   );
 }
 
-export default App;`;
+render(<App/>)`;
 
-const advancedQueryExample = `import React, { useState } from 'react';
-import { 
-  QueryClient, 
-  QueryClientProvider,
-  useQuery,
-  useQueryClient
-} from '@tanstack/react-query';
-
-const queryClient = new QueryClient();
+const advancedQueryExample = `
+const queryClient = new ReactQuery.QueryClient();
 
 // Component using advanced query features
 function PostsWithFilters() {
   // State for our filters
-  const [limit, setLimit] = useState(5);
-  const [userId, setUserId] = useState("");
+  const [limit, setLimit] = React.useState(5);
+  const [userId, setUserId] = React.useState("");
   
   // Access the query client instance
-  const queryClient = useQueryClient();
+  const queryClient = ReactQuery.useQueryClient();
   
   // Define the query with dependencies
   const {
@@ -154,7 +141,7 @@ function PostsWithFilters() {
     isFetching,
     isPlaceholderData, // True when showing cached data while refetching
     isPreviousData     // True when showing previous results while new results are fetched
-  } = useQuery({
+  } = ReactQuery.useQuery({
     // Query key includes filter values, causing refetch when they change
     queryKey: ['posts', { limit, userId }],
     
@@ -333,18 +320,18 @@ function PostsWithFilters() {
 // Main app with provider
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <ReactQuery.QueryClientProvider client={queryClient}>
       <div className="p-4">
         <h1 className="text-2xl font-bold text-center mb-6">
           Advanced useQuery Features
         </h1>
         <PostsWithFilters />
       </div>
-    </QueryClientProvider>
+    </ReactQuery.QueryClientProvider>
   );
 }
 
-export default App;`;
+render(<App/>)`;
 
 const quizQuestions = [
   {

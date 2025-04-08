@@ -8,7 +8,6 @@ import { ChevronRight } from 'lucide-react';
 import { useProgress } from '@/hooks/use-progress';
 
 const basicCallbackExample = `
-function basicCallbackExample() {
 function ButtonWithCallback() {
   const [count, setCount] = React.useState(0);
   const [otherState, setOtherState] = React.useState(0);
@@ -74,8 +73,8 @@ const ChildComponent = React.memo(({ onClick, label }) => {
     </button>
   );
 });
- return <ButtonWithCallback />;
-}`;
+ render(<ButtonWithCallback />);
+`;
 
 const dependencyArrayExample = `
 function TodoApp() {
@@ -222,6 +221,8 @@ const TodoItem = React.memo(({ todo, toggleTodo }) => {
     </div>
   );
 }
+
+render(<TodoApp />);
 `;
 
 const quizQuestions = [

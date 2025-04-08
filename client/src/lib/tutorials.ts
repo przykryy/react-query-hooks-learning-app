@@ -101,20 +101,20 @@ export const tutorials = {
       description: "Learn how to invalidate and refetch queries when data changes.",
       shortDescription: "Invalidate and refetch queries"
     },
-    {
-      id: "caching",
-      title: "Caching & Stale Time",
-      path: "/tanstack/caching",
-      description: "Understand how TanStack Query's caching system works and how to configure it.",
-      shortDescription: "Configure caching and stale time"
-    },
-    {
-      id: "pagination",
-      title: "Pagination & Infinite Queries",
-      path: "/tanstack/pagination",
-      description: "Implement pagination and infinite scroll with TanStack Query.",
-      shortDescription: "Implement pagination and infinite scroll"
-    }
+    // {
+    //   id: "caching",
+    //   title: "Caching & Stale Time",
+    //   path: "/tanstack/caching",
+    //   description: "Understand how TanStack Query's caching system works and how to configure it.",
+    //   shortDescription: "Configure caching and stale time"
+    // },
+    // {
+    //   id: "pagination",
+    //   title: "Pagination & Infinite Queries",
+    //   path: "/tanstack/pagination",
+    //   description: "Implement pagination and infinite scroll with TanStack Query.",
+    //   shortDescription: "Implement pagination and infinite scroll"
+    // }
   ]
 };
 

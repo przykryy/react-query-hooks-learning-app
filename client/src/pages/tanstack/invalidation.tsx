@@ -4,9 +4,7 @@ import LearningObjectives from '@/components/tutorial/LearningObjectives';
 import CodeExample from '@/components/tutorial/CodeExample';
 import Quiz from '@/components/tutorial/Quiz';
 
-const basicInvalidationExample = `import React, { useState } from 'react';
-import { QueryClient, QueryClientProvider, useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-
+const basicInvalidationExample = `
 // Mock API
 const api = {
   getTodos: async () => {
@@ -28,10 +26,10 @@ const api = {
 
 // Todo component with toggle functionality
 function Todo({ todo }) {
-  const queryClient = useQueryClient();
+  const queryClient = ReactQuery.useQueryClient();
   
   // Mutation to toggle todo completion status
-  const toggleMutation = useMutation({
+  const toggleMutation = ReactQuery.useMutation({
     mutationFn: api.updateTodo,
     onSuccess: (updatedTodo) => {
       // Method 1: Invalidate the todos query
@@ -60,10 +58,10 @@ function Todo({ todo }) {
 
 // TodoList component that fetches and displays todos
 function TodoList() {
-  const queryClient = useQueryClient();
+  const queryClient = ReactQuery.useQueryClient();
   
   // Query to fetch todos
-  const { data: todos, isLoading, isError, error, refetch, dataUpdatedAt } = useQuery({
+  const { data: todos, isLoading, isError, error, refetch, dataUpdatedAt } = ReactQuery.useQuery({
     queryKey: ['todos'],
     queryFn: api.getTodos,
     staleTime: 5000, // Consider data stale after 5 seconds
@@ -126,11 +124,9 @@ function App() {
   );
 }
 
-export default App;`;
+render(<App/>);`;
 
-const advancedInvalidationExample = `import React, { useState } from 'react';
-import { QueryClient, QueryClientProvider, useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-
+const advancedInvalidationExample = `
 // Mock API for different resources
 const api = {
   // Posts API
@@ -201,19 +197,19 @@ const api = {
 
 // Component for adding a new post
 function AddPostForm() {
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
-  const [userId, setUserId] = useState(1);
-  const queryClient = useQueryClient();
+  const [title, setTitle] = React.useState('');
+  const [body, setBody] = React.useState('');
+  const [userId, setUserId] = React.useState(1);
+  const queryClient = ReactQuery.useQueryClient();
   
   // Get users for the dropdown
-  const { data: users } = useQuery({
+  const { data: users } = ReactQuery.useQuery({
     queryKey: ['users'],
     queryFn: api.getUsers,
   });
   
   // Mutation to add a post
-  const addPostMutation = useMutation({
+  const addPostMutation = ReactQuery.useMutation({
     mutationFn: api.addPost,
     onSuccess: (newPost) => {
       // APPROACH 1: Invalidate all posts queries
@@ -301,17 +297,17 @@ function AddPostForm() {
 
 // Component for displaying comments
 function CommentList({ postId }) {
-  const queryClient = useQueryClient();
-  const [newComment, setNewComment] = useState('');
+  const queryClient = ReactQuery.useQueryClient();
+  const [newComment, setNewComment] = React.useState('');
   
   // Query for comments
-  const { data: comments = [], isLoading } = useQuery({
+  const { data: comments = [], isLoading } = ReactQuery.useQuery({
     queryKey: ['comments', postId],
     queryFn: () => api.getComments(postId),
   });
   
   // Mutation to add a comment
-  const addCommentMutation = useMutation({
+  const addCommentMutation = ReactQuery.useMutation({
     mutationFn: api.addComment,
     onSuccess: (newComment) => {
       // More precise invalidation - only invalidate comments for this post
@@ -392,7 +388,7 @@ function Post({ post, expanded, onToggleExpand }) {
 
 // User filter component
 function UserFilter({ activeUserId, onUserChange }) {
-  const { data: users, isLoading } = useQuery({
+  const { data: users, isLoading } = ReactQuery.useQuery({
     queryKey: ['users'],
     queryFn: api.getUsers,
   });
@@ -418,12 +414,12 @@ function UserFilter({ activeUserId, onUserChange }) {
 
 // Posts list component
 function PostsList() {
-  const queryClient = useQueryClient();
-  const [activeUserId, setActiveUserId] = useState(null);
-  const [expandedPostId, setExpandedPostId] = useState(null);
+  const queryClient = ReactQuery.useQueryClient();
+  const [activeUserId, setActiveUserId] = React.useState(null);
+  const [expandedPostId, setExpandedPostId] = React.useState(null);
   
   // Query for posts based on active user
-  const { data: posts = [], isLoading, dataUpdatedAt } = useQuery({
+  const { data: posts = [], isLoading, dataUpdatedAt } = ReactQuery.useQuery({
     queryKey: ['posts', activeUserId].filter(Boolean),
     queryFn: () => api.getPosts(activeUserId),
   });
@@ -513,7 +509,7 @@ function App() {
   );
 }
 
-export default App;`;
+render(<App/>);`;
 
 const quizQuestions = [
   {

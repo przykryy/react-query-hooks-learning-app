@@ -62,6 +62,7 @@ function WindowSizeDisplay() {
     </div>
   );
 }
+  render(<WindowSizeDisplay />);
 `;
 
 const complexCustomHookExample = `
@@ -239,6 +240,7 @@ Password: \${values.password.replace(/./g, '*')}\`);
     </div>
   );
 }
+  render(<SignupForm />);
 `;
 
 const quizQuestions = [

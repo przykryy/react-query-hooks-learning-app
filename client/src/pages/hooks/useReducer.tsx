@@ -8,8 +8,6 @@ import { ChevronRight } from 'lucide-react';
 import { useProgress } from '@/hooks/use-progress';
 
 const basicReducerExample = `
-
-
 function Counter() {
 // Step 1: Define an initial state
 const initialState = { count: 0 };
@@ -69,10 +67,11 @@ function reducer(state, action) {
       </div>
     </div>
   );
-}`;
+}
+  
+render(<Counter />);`;
 
 const complexStateExample = `
-function complexStateExample() {
 // Step 1: Define the initial state for a shopping cart
 const initialState = {
   items: [],
@@ -310,8 +309,8 @@ function ShoppingCart() {
     </div>
   );
 }
-return <ShoppingCart />;
-}`;
+render(<ShoppingCart />);
+`;
 
 const quizQuestions = [
   {

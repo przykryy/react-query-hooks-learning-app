@@ -51,7 +51,8 @@ function TextInputWithFocus() {
       </p>
     </div>
   );
-}`;
+}
+  render(<TextInputWithFocus />);`;
 
 const valueRefExample = `
 function StopwatchWithPrevious() {
@@ -122,7 +123,9 @@ function StopwatchWithPrevious() {
       </div>
     </div>
   );
-}`;
+}
+  
+render(<StopwatchWithPrevious />);`;
 
 const quizQuestions = [
   {

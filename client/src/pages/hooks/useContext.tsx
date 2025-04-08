@@ -8,7 +8,6 @@ import { ChevronRight } from 'lucide-react';
 import { useProgress } from '@/hooks/use-progress';
 
 const basicContextExample = `
-function ThemeApp() {
 var ThemeContext = React.createContext({
   isDark: false,
   toggleTheme: () => {}
@@ -78,11 +77,10 @@ function App() {
     </ThemeProvider>
   );
 }
-return <App/>
-}`;
+  
+render(<App />);`;
 
 const nestedContextExample = `
-function nestedContext() {
 // Step 1: Create the contexts
 const ThemeContext = React.createContext('light');
 const UserContext = React.createContext(null);
@@ -184,7 +182,7 @@ function UserProfile() {
     <div 
       style={{ 
         padding: '1rem', 
-        backgroundColor: '#f3f4f6', 
+        backgroundColor:  '#1a202c', 
         borderRadius: '0.375rem',
         marginBottom: '1rem'
       }}
@@ -257,8 +255,8 @@ function App() {
     </AppProvider>
   );
 }
-  return <App />
-}`;
+render(<App/>);
+`;
 
 const quizQuestions = [
   {

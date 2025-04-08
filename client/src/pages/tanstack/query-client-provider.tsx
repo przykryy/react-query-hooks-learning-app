@@ -7,12 +7,9 @@ import NextSteps from '@/components/tutorial/NextSteps';
 import { ChevronRight } from 'lucide-react';
 import { useProgress } from '@/hooks/use-progress';
 
-const basicSetupExample = `import React from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-
+const basicSetupExample = `
 // Create a client with default options
-const queryClient = new QueryClient();
+const queryClient = new ReactQuery.QueryClient();
 
 // A simple component that will use the QueryClient
 function TodoApp() {
@@ -28,7 +25,7 @@ function TodoApp() {
 function App() {
   return (
     // Provide the client to your App
-    <QueryClientProvider client={queryClient}>
+    <ReactQuery.QueryClientProvider client={queryClient}>
       <div className="max-w-3xl mx-auto">
         <h1 className="text-2xl font-bold text-center my-4">
           TanStack Query App
@@ -37,23 +34,15 @@ function App() {
       </div>
       
       {/* Add the ReactQueryDevtools for development - only appears in development */}
-      <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
-    </QueryClientProvider>
+    </ReactQuery.QueryClientProvider>
   );
 }
 
-export default App;`;
+render(<App />);`;
 
-const customClientExample = `import React from 'react';
-import { 
-  QueryClient, 
-  QueryClientProvider, 
-  useQuery
-} from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-
+const customClientExample = `
 // Create a custom configured client
-const queryClient = new QueryClient({
+const queryClient = new ReactQuery.QueryClient({
   defaultOptions: {
     queries: {
       // All queries will use these settings by default
@@ -75,7 +64,7 @@ const queryClient = new QueryClient({
 
 // Component using a query
 function PostList() {
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error } = ReactQuery.useQuery({
     queryKey: ['posts'],
     queryFn: async () => {
       // This query will use the default options
@@ -109,7 +98,7 @@ function PostList() {
 
 // Component with custom query options
 function UserProfile() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = ReactQuery.useQuery({
     queryKey: ['user', 1],
     queryFn: async () => {
       const res = await fetch('https://jsonplaceholder.typicode.com/users/1');
@@ -137,7 +126,7 @@ function UserProfile() {
 // App with configured client
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <ReactQuery.QueryClientProvider client={queryClient}>
       <div className="max-w-3xl mx-auto p-4">
         <h1 className="text-2xl font-bold text-center mb-6">
           Configured QueryClient Example
@@ -157,12 +146,11 @@ function App() {
         <PostList />
       </div>
       
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    </ReactQuery.QueryClientProvider>
   );
 }
 
-export default App;`;
+render(<App />);`;
 
 const quizQuestions = [
   {

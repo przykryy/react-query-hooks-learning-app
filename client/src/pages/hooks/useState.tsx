@@ -52,7 +52,9 @@ function Counter() {
       </div>
     </div>
   );
-}`;
+}
+  
+render(<Counter />);`;
 
 const formExample = `
 function UserForm() {
@@ -132,7 +134,9 @@ function UserForm() {
       </form>
     </div>
   );
-}`;
+}
+  
+render(<UserForm />);`;
 
 const quizQuestions = [
   {

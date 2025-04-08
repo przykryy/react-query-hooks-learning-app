@@ -4,16 +4,14 @@ import LearningObjectives from '@/components/tutorial/LearningObjectives';
 import CodeExample from '@/components/tutorial/CodeExample';
 import Quiz from '@/components/tutorial/Quiz';
 
-const basicMutationExample = `import React, { useState } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-
+const basicMutationExample = `
 // Example form component that creates a new todo
 function AddTodoForm() {
-  const [title, setTitle] = useState('');
-  const queryClient = useQueryClient();
+  const [title, setTitle] = React.useState('');
+  const queryClient = ReactQuery.useQueryClient();
   
   // Define the mutation
-  const addTodoMutation = useMutation({
+  const addTodoMutation = ReactQuery.useMutation({
     mutationFn: async (newTodo) => {
       // In a real app, you would call your API here
       const response = await fetch('https://jsonplaceholder.typicode.com/todos', {
@@ -92,11 +90,9 @@ function App() {
   );
 }
 
-export default App;`;
+render(<App/>);`;
 
-const advancedMutationExample = `import React, { useState } from 'react';
-import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
-
+const advancedMutationExample = `
 // Simulate API calls
 const api = {
   getTodos: async () => {
@@ -138,10 +134,10 @@ const api = {
 
 // Todo item component with update and delete mutations
 function TodoItem({ todo }) {
-  const queryClient = useQueryClient();
+  const queryClient = ReactQuery.useQueryClient();
   
   // Toggle completion status mutation
-  const toggleMutation = useMutation({
+  const toggleMutation = ReactQuery.useMutation({
     mutationFn: (todo) => api.updateTodo({
       ...todo,
       completed: !todo.completed
@@ -181,7 +177,7 @@ function TodoItem({ todo }) {
   });
   
   // Delete todo mutation
-  const deleteMutation = useMutation({
+  const deleteMutation = ReactQuery.useMutation({
     mutationFn: (id) => api.deleteTodo(id),
     
     // Optimistic update
@@ -241,10 +237,10 @@ function TodoItem({ todo }) {
 
 // Add todo form with mutation
 function AddTodoForm() {
-  const [title, setTitle] = useState('');
-  const queryClient = useQueryClient();
+  const [title, setTitle] = React.useState('');
+  const queryClient = ReactQuery.useQueryClient();
   
-  const addMutation = useMutation({
+  const addMutation = ReactQuery.useMutation({
     mutationFn: (newTodo) => api.addTodo(newTodo),
     
     // When mutation succeeds, add the new todo to the cache
@@ -291,7 +287,7 @@ function AddTodoForm() {
 
 // TodoList component that displays todos
 function TodoList() {
-  const { data: todos, isLoading, isError, error } = useQuery({
+  const { data: todos, isLoading, isError, error } = ReactQuery.useQuery({
     queryKey: ['todos'],
     queryFn: api.getTodos
   });
@@ -328,12 +324,12 @@ function App() {
   );
 }
 
-export default App;`;
+render(<App/>);`;
 
 const quizQuestions = [
   {
     id: '1',
-    question: 'What is the primary purpose of useMutation in TanStack Query?',
+    question: 'What is the primary purpose of ReactQuery.useMutation in TanStack Query?',
     options: [
       { id: 'a', text: 'To fetch data from an API' },
       { id: 'b', text: 'To handle create, update, and delete operations' },
@@ -341,11 +337,11 @@ const quizQuestions = [
       { id: 'd', text: 'To handle offline data synchronization' }
     ],
     correctAnswer: 'b',
-    explanation: 'useMutation is designed for handling data mutations (create, update, delete operations) rather than data fetching. It provides useful state variables and functions for managing the lifecycle of a mutation.'
+    explanation: 'ReactQuery.useMutation is designed for handling data mutations (create, update, delete operations) rather than data fetching. It provides useful state variables and functions for managing the lifecycle of a mutation.'
   },
   {
     id: '2',
-    question: 'What does the onMutate callback in useMutation allow you to do?',
+    question: 'What does the onMutate callback in ReactQuery.useMutation allow you to do?',
     options: [
       { id: 'a', text: 'Handle mutation errors' },
       { id: 'b', text: 'Transform the variables before the mutation' },
@@ -396,12 +392,12 @@ const quizQuestions = [
 const UseMutationPage: React.FC = () => {
   return (
     <div className="container mx-auto py-10 px-4">
-      <h1 className="text-3xl font-bold mb-8">TanStack Query: useMutation Hook</h1>
+      <h1 className="text-3xl font-bold mb-8">TanStack Query: ReactQuery.useMutation Hook</h1>
       
       <LearningObjectives 
         objectives={[
-          "Understand the useMutation hook and its purpose",
-          "Learn how to create, update, and delete data with useMutation",
+          "Understand the ReactQuery.useMutation hook and its purpose",
+          "Learn how to create, update, and delete data with ReactQuery.useMutation",
           "Implement optimistic updates for a better user experience",
           "Handle mutation states (loading, success, error)",
           "Update the query cache after mutations"
@@ -409,19 +405,19 @@ const UseMutationPage: React.FC = () => {
       />
       
       <div className="mt-12 mb-10 max-w-3xl">
-        <h2 className="text-2xl font-semibold mb-4">Introduction to useMutation</h2>
+        <h2 className="text-2xl font-semibold mb-4">Introduction to ReactQuery.useMutation</h2>
         <p className="mb-4">
-          While useQuery is perfect for fetching data, useMutation is designed for creating, 
+          While useQuery is perfect for fetching data, ReactQuery.useMutation is designed for creating, 
           updating, and deleting data. It helps you manage the entire lifecycle of a mutation 
           operation, including loading states, error handling, and success callbacks.
         </p>
         
         <p className="mb-4">
-          Here's the basic syntax of useMutation:
+          Here's the basic syntax of ReactQuery.useMutation:
         </p>
         
         <div className="bg-sidebar rounded-md p-4 my-4 font-code text-sm">
-          <pre>const mutation = useMutation({'{'}
+          <pre>const mutation = ReactQuery.useMutation({'{'}
   mutationFn: function(variables) {'{'}
     // Function that performs the mutation
     return api.createItem(variables);
@@ -439,7 +435,7 @@ const UseMutationPage: React.FC = () => {
         </div>
         
         <p className="mb-4">
-          The useMutation hook returns an object with several properties and methods:
+          The ReactQuery.useMutation hook returns an object with several properties and methods:
         </p>
         
         <ul className="list-disc pl-5 space-y-2 mb-4">
@@ -452,16 +448,16 @@ const UseMutationPage: React.FC = () => {
         </ul>
       </div>
       
-      {/* Example 1: Basic useMutation */}
+      {/* Example 1: Basic ReactQuery.useMutation */}
       <div className="mb-10" id="examples">
-        <h2 className="text-2xl font-semibold mb-4">Example 1: Basic useMutation</h2>
+        <h2 className="text-2xl font-semibold mb-4">Example 1: Basic ReactQuery.useMutation</h2>
         <p className="mb-4 max-w-3xl">
-          This example demonstrates a simple form that creates a new todo item using useMutation.
+          This example demonstrates a simple form that creates a new todo item using ReactQuery.useMutation.
           It shows how to handle loading, success, and error states during the mutation.
         </p>
         
         <CodeExample 
-          title="Create Todo with useMutation"
+          title="Create Todo with ReactQuery.useMutation"
           initialCode={basicMutationExample}
           explanation={
             <div>
@@ -469,7 +465,7 @@ const UseMutationPage: React.FC = () => {
               <ul className="space-y-2 pl-4">
                 <li className="flex items-start">
                   <div className="w-2 h-2 rounded-full bg-secondary mt-1.5 mr-2"></div>
-                  <span>Using useMutation to create a new resource</span>
+                  <span>Using ReactQuery.useMutation to create a new resource</span>
                 </li>
                 <li className="flex items-start">
                   <div className="w-2 h-2 rounded-full bg-secondary mt-1.5 mr-2"></div>
@@ -489,7 +485,7 @@ const UseMutationPage: React.FC = () => {
           analysis={
             <div>
               <h4 className="font-medium mb-2">Code Analysis</h4>
-              <p className="mb-2">Let's analyze the key parts of this useMutation implementation:</p>
+              <p className="mb-2">Let's analyze the key parts of this ReactQuery.useMutation implementation:</p>
               <ul className="space-y-2 pl-4">
                 <li className="flex items-start">
                   <div className="w-2 h-2 rounded-full bg-secondary mt-1.5 mr-2"></div>
@@ -524,11 +520,11 @@ const UseMutationPage: React.FC = () => {
         />
       </div>
       
-      {/* Example 2: Advanced useMutation with Optimistic Updates */}
+      {/* Example 2: Advanced ReactQuery.useMutation with Optimistic Updates */}
       <div className="mb-10">
-        <h2 className="text-2xl font-semibold mb-4">Example 2: Advanced useMutation with Optimistic Updates</h2>
+        <h2 className="text-2xl font-semibold mb-4">Example 2: Advanced ReactQuery.useMutation with Optimistic Updates</h2>
         <p className="mb-4 max-w-3xl">
-          This more advanced example demonstrates using useMutation with optimistic updates
+          This more advanced example demonstrates using ReactQuery.useMutation with optimistic updates
           for creating, updating, and deleting todos. It creates a responsive UI that updates
           immediately while mutations are processing.
         </p>
@@ -596,7 +592,7 @@ const UseMutationPage: React.FC = () => {
         />
       </div>
       
-      {/* useMutation Best Practices */}
+      {/* ReactQuery.useMutation Best Practices */}
       <div className="mb-10 max-w-3xl">
         <div className="bg-muted rounded-lg p-5">
           <h3 className="flex items-center text-lg font-medium mb-3">
@@ -605,7 +601,7 @@ const UseMutationPage: React.FC = () => {
               <path d="M8.5 12H15.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               <path d="M12 8.5V15.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             </svg>
-            useMutation Best Practices
+            ReactQuery.useMutation Best Practices
           </h3>
           
           <div className="mb-5">
@@ -667,9 +663,9 @@ const UseMutationPage: React.FC = () => {
       {/* Quiz Section */}
       <div id="quiz">
         <Quiz 
-          title="Quiz: useMutation Hook"
+          title="Quiz: ReactQuery.useMutation Hook"
           questions={quizQuestions}
-          tutorialId="useMutation"
+          tutorialId="ReactQuery.useMutation"
         />
       </div>
       

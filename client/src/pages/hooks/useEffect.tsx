@@ -60,7 +60,9 @@ function Timer() {
       </div>
     </div>
   );
-}`;
+}
+render(<Timer />);
+`;
 
 const fetchDataExample = `function UserProfile() {
   const [userId, setUserId] = React.useState(1);
@@ -135,7 +137,9 @@ const fetchDataExample = `function UserProfile() {
       </div>
     </div>
   );
-}`;
+}
+  
+render(<UserProfile />);`;
 
 const quizQuestions = [
   {
