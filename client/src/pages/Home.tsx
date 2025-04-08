@@ -143,6 +143,9 @@ const Home: React.FC = () => {
           </Link>
         </div>
       </div>
+      <div className="mt-12 text-center">
+        <img src="/images/made-by-kris.png" alt="Made by Kris" className="mx-auto rounded-full w-24 h-24" />
+      </div>
     </div>
   );
 };

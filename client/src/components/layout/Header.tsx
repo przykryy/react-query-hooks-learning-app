@@ -14,6 +14,7 @@ const Header = ({ toggleMobileMenu }: HeaderProps) => {
     <header className="bg-sidebar border-b border-muted">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center space-x-2">
+          <img src="/images/made-by-kris.png" alt="Made by Kris" className="mx-auto rounded-full w-16 h-16" />
           <Link href="/">
             <a className="flex items-center space-x-2">
               <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6 text-primary">
