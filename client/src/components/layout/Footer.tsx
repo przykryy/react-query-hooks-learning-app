@@ -19,10 +19,10 @@ const Footer = () => {
           </div>
           
           <div className="flex space-x-6">
-            <a href="https://github.com" className="text-muted-foreground hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/przykryy/react-query-hooks-learning-app#" className="text-muted-foreground hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">
               <Github className="h-5 w-5" />
             </a>
-            <a href="https://twitter.com" className="text-muted-foreground hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">
+            <a href="https://x.com/PrzybylekK" className="text-muted-foreground hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">
               <Twitter className="h-5 w-5" />
             </a>
           </div>

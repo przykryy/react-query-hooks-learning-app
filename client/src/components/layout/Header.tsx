@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
-import { Search, Menu, User } from 'lucide-react';
+import { Menu } from 'lucide-react';
 
 interface HeaderProps {
   toggleMobileMenu: () => void;
@@ -40,18 +40,11 @@ const Header = ({ toggleMobileMenu }: HeaderProps) => {
         </div>
         
         <div className="flex items-center space-x-3">
-          <Button variant="ghost" size="icon" className="hover:text-primary transition-colors">
-            <Search className="h-5 w-5" />
-          </Button>
-          
+        
           <Button variant="ghost" size="icon" className="hover:text-primary transition-colors md:hidden" onClick={toggleMobileMenu}>
             <Menu className="h-5 w-5" />
           </Button>
           
-          <Button variant="secondary" size="sm" className="flex items-center space-x-1">
-            <User className="h-4 w-4 mr-1" />
-            <span>Sign In</span>
-          </Button>
         </div>
       </div>
     </header>

@@ -106,3 +106,7 @@ progress::-webkit-progress-bar {
 .split-pane-divider {
   cursor: col-resize;
 }
+
+pre {
+  overflow-x: auto;
+}

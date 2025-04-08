@@ -450,7 +450,7 @@ const UseQueryPage = () => {
         </p>
         
         <div className="bg-sidebar rounded-md p-4 my-4 font-code text-sm">
-          <pre>const {'{'} 
+          <pre className="overflow-x-auto">const {'{'} 
   data,
   isLoading,
   isError,

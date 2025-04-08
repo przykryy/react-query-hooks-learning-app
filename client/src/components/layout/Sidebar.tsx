@@ -12,16 +12,6 @@ const Sidebar = () => {
 
   return (
     <aside className="w-64 bg-sidebar h-full border-r border-muted overflow-y-auto">
-      <div className="p-4 border-b border-muted">
-        <div className="relative">
-          <Input
-            type="text"
-            placeholder="Search tutorials..."
-            className="w-full bg-muted pl-8 pr-3 text-sm"
-          />
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-        </div>
-      </div>
       
       <div className="p-4">
         <h3 className="font-semibold mb-3">Your Progress</h3>

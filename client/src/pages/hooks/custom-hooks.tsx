@@ -79,7 +79,7 @@ function useForm(initialValues, validate) {
     const validationErrors = validate(values);
     setErrors(validationErrors);
     setIsValid(Object.keys(validationErrors).length === 0);
-  }, [values, validate]);
+  }, [values]);
   
   // Handle input changes
   const handleChange = React.useCallback((e) => {
@@ -123,7 +123,7 @@ function useForm(initialValues, validate) {
 // Component that uses the custom form hook
 function SignupForm() {
   // Validation function
-  const validateForm = (values) => {
+  const validateForm =  React.useCallback((values) => {
     let errors = {};
     
     // Email validation
@@ -146,7 +146,7 @@ function SignupForm() {
     }
     
     return errors;
-  };
+});
   
   // Use our custom hook
   const {

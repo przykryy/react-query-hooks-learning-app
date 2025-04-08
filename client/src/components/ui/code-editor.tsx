@@ -25,7 +25,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   initialCode,
   language = 'jsx',
   readOnly = false,
-  height = '400px',
+  height = '1000px',
   onCodeChange,
   onRun,
   preview,
@@ -35,29 +35,17 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
 }) => {
   const [code, setCode] = useState(initialCode);
   const [activeTab, setActiveTab] = useState('explanation');
-  const editorRef = useRef<HTMLTextAreaElement>(null);
-  useEffect(() => {
-    if (editorRef.current) {
-      // Auto-adjust height of textarea
-      editorRef.current.style.height = 'auto';
-      editorRef.current.style.height = `${editorRef.current.scrollHeight}px`;
-    }
-  }, [code]);
 
-  const handleCodeChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newCode = e.target.value;
+  const handleCodeChange = (e: string) => {
+    const newCode = e;
     setCode(newCode);
     console.log('new change');
-    onCodeChange?.(newCode);
   };
 
   const handleReset = () => {
+    console.log(initialCode);
     setCode(initialCode);
     onCodeChange?.(initialCode);
-  };
-
-  const handleRun = () => {
-    onRun?.(code);
   };
 
   return (
@@ -72,14 +60,6 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
             className="text-sm px-3 py-1 rounded hover:bg-background transition-colors"
           >
             Reset
-          </Button>
-          <Button
-            variant="default"
-            size="sm"
-            onClick={handleRun}
-            className="text-sm px-3 py-1 bg-primary text-primary-foreground rounded hover:bg-opacity-80 transition-colors"
-          >
-            Run
           </Button>
         </div>
       </CardHeader>
@@ -111,11 +91,9 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
                   "w-full bg-transparent font-mono text-sm p-0 border-0 outline-none resize-none",
                   "whitespace-pre font-code tab-size-2"
                 )}
+                onChange={(e) => handleCodeChange(e)}
                 style={{
                   minHeight: height,
-                  color: 'inherit',
-                  counterIncrement: 'token-line',
-                  content: 'conter(token-line)',
                 }}
               />
             </div>
