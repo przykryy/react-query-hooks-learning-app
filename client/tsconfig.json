@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.json",
+  "include": ["src/**/*", "../shared/**/*"],
+  "exclude": ["node_modules", "build", "dist"],
+  "compilerOptions": {
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "jsx": "preserve",
+    "allowImportingTsExtensions": true,
+    "types": ["vite/client", "jest"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@shared/*": ["../shared/*"]
+    }
+  }
+}
