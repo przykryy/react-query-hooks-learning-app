@@ -2,5 +2,5 @@
   "watch": ["server/src", "shared"],
   "ext": "ts",
   "ignore": ["**/*.spec.ts"],
-  "exec": "tsx server/src/main.ts"
+  "exec": "tsx --tsconfig server/tsconfig.json server/src/main.ts"
 }
