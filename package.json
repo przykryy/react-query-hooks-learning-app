@@ -116,6 +116,7 @@
     "drizzle-kit": "^0.30.4",
     "esbuild": "^0.25.0",
     "identity-obj-proxy": "^3.0.0",
+    "jest-environment-jsdom": "^29.7.0",
     "nodemon": "^3.1.9",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
