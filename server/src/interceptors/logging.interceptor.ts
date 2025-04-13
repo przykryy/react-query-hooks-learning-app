@@ -6,37 +6,22 @@ import {
 } from "@nestjs/common";
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
-import { log } from "../vite/vite.utils";
+import { LoggerService } from "../shared/logger.service";
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
+  constructor(private readonly loggerService: LoggerService) {}
+
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    const req = context.switchToHttp().getRequest();
-    const path = req.path;
+    const request = context.switchToHttp().getRequest();
+    const method = request.method;
+    const url = request.url;
 
-    // Only log API requests
-    if (!path.startsWith("/api")) {
-      return next.handle();
-    }
-
-    const start = Date.now();
-
+    const now = Date.now();
     return next.handle().pipe(
-      tap((data) => {
-        const response = context.switchToHttp().getResponse();
-        const duration = Date.now() - start;
-
-        let logLine = `${req.method} ${path} ${response.statusCode} in ${duration}ms`;
-
-        if (data) {
-          logLine += ` :: ${JSON.stringify(data)}`;
-        }
-
-        if (logLine.length > 80) {
-          logLine = logLine.slice(0, 79) + "…";
-        }
-
-        log(logLine);
+      tap(() => {
+        const elapsed = Date.now() - now;
+        this.loggerService.log(`${method} ${url} - ${elapsed}ms`, "HTTP");
       })
     );
   }

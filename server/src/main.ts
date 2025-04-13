@@ -7,6 +7,7 @@ import { ExpressAdapter } from "@nestjs/platform-express";
 import express from "express";
 import { createServer } from "http";
 import path from "path";
+import { LoggerService } from "./shared/logger.service";
 
 async function bootstrap() {
   // Create Express instance
@@ -40,8 +41,11 @@ async function bootstrap() {
     })
   );
 
+  // Get the LoggerService from the application context
+  const loggerService = app.get(LoggerService);
+
   // Apply custom logging interceptor
-  app.useGlobalInterceptors(new LoggingInterceptor());
+  app.useGlobalInterceptors(new LoggingInterceptor(loggerService));
 
   // Apply global exception filter
   app.useGlobalFilters(new HttpExceptionFilter());
